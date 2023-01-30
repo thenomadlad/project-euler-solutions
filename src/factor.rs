@@ -12,6 +12,7 @@ impl FactorIterator {
     }
 }
 
+#[derive(Debug)]
 pub struct Factorization {
     pub factor: u64,
     pub power: u64,
