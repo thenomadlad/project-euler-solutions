@@ -1,9 +1,11 @@
-
 const ROWS: usize = 20;
 const COLS: usize = 20;
 
-
 fn main() {
+    dp_solution();
+}
+
+fn dp_solution() {
     let mut values = [[0 as usize; ROWS + 1]; COLS + 1];
 
     for row in (0..=ROWS).rev() {
@@ -19,3 +21,4 @@ fn main() {
     let solution = values[0][0];
     println!("{solution}");
 }
+
