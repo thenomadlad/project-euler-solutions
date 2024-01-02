@@ -1,7 +1,6 @@
 const POWER: usize = 1000;
 
 fn main() {
-    // println!("{}", solve(15.0));
     println!("{}", solve(POWER as f64));
 }
 
@@ -20,15 +19,3 @@ fn solve(power: f64) -> usize {
     }
     digs.iter().fold(0 as usize, |acc, v| acc + *v as usize)
 }
-
-// fn digsum(v: usize) -> usize {
-//     let mut sum = 0;
-//     let mut tempval = v;
-//
-//     while tempval > 0 {
-//         sum += tempval % 10;
-//         tempval /= 10;
-//     }
-//
-//     sum
-// }
