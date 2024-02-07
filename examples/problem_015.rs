@@ -21,4 +21,3 @@ fn dp_solution() {
     let solution = values[0][0];
     println!("{solution}");
 }
-

@@ -3,9 +3,9 @@ pub struct Fibs {
     next: u64,
 }
 
-impl Fibs {
-    pub fn new() -> Fibs {
-        Fibs {
+impl Default for Fibs {
+    fn default() -> Self {
+        Self {
             current: 0,
             next: 1,
         }

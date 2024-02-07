@@ -1,7 +1,7 @@
 use project_euler_solutions::primes::PrimesIterator;
 
 fn solution(n: usize) -> u64 {
-    PrimesIterator::new().take(n).last().unwrap()
+    PrimesIterator::default().take(n).last().unwrap()
 }
 
 fn main() {

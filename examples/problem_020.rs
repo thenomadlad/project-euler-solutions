@@ -1,4 +1,4 @@
-use project_euler_solutions::{bignum::BigNum, digsum, factorial};
+use project_euler_solutions::bignum::BigNum;
 
 fn main() {
     println!("{}! = {}", 100, soln(100));

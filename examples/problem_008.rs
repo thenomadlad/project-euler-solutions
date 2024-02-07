@@ -37,7 +37,7 @@ fn solution(len: usize) -> u64 {
         if seq.len() > len {
             seq.remove(0);
 
-            let new_num = seq.iter().fold(1 as u64, |acc, &val| acc * (val as u64));
+            let new_num = seq.iter().fold(1_u64, |acc, &val| acc * (val as u64));
             max_prod = max(new_num, max_prod);
         }
     }

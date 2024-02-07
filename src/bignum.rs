@@ -11,7 +11,7 @@ pub struct BigNum {
 }
 
 impl BigNum {
-    pub fn new() -> Self {
+    pub fn zero() -> Self {
         Self::new_with_digs(vec![0])
     }
 
@@ -36,6 +36,12 @@ impl BigNum {
     }
 }
 
+impl Default for BigNum {
+    fn default() -> Self {
+        Self::zero()
+    }
+}
+
 impl<'a, 'b> Add<&'a BigNum> for &'b BigNum {
     type Output = BigNum;
 
@@ -51,11 +57,7 @@ impl<'a, 'b> Add<&'a BigNum> for &'b BigNum {
 
             // append to vec
             result.push(value % BASE);
-            if value >= BASE {
-                carry = true;
-            } else {
-                carry = false;
-            }
+            carry = value >= BASE;
         }
 
         if carry {
@@ -116,14 +118,9 @@ impl<'a, 'b> Mul<&'a BigNum> for &'b BigNum {
                 let offset = vec![0; idx];
                 let multiplied = greater * val;
 
-                BigNum::new_with_digs(
-                    offset
-                        .into_iter()
-                        .chain(multiplied.digs.into_iter())
-                        .collect(),
-                )
+                BigNum::new_with_digs(offset.into_iter().chain(multiplied.digs).collect())
             })
-            .fold(BigNum::new(), |acc, val| &acc + &val)
+            .fold(BigNum::zero(), |acc, val| &acc + &val)
     }
 }
 
@@ -133,14 +130,14 @@ mod tests {
 
     #[test]
     fn adds_base_cases() {
-        assert_eq!(&BigNum::new() + &BigNum::new(), BigNum::new())
+        assert_eq!(&BigNum::zero() + &BigNum::zero(), BigNum::zero())
     }
 
     #[test]
     fn adds_empty_lhs_rhs() {
         let val = BigNum::new_with_digs(vec![999999, 9]);
-        assert_eq!(&val + &BigNum::new(), val);
-        assert_eq!(&BigNum::new() + &val, val);
+        assert_eq!(&val + &BigNum::zero(), val);
+        assert_eq!(&BigNum::zero() + &val, val);
     }
 
     #[test]
@@ -170,13 +167,13 @@ mod tests {
     #[test]
     fn mul_num_with_zero() {
         let val = BigNum::new_with_digs(vec![999999, 9]);
-        assert_eq!(&val * 0, BigNum::new());
+        assert_eq!(&val * 0, BigNum::zero());
     }
 
     #[test]
     fn mul_num_with_empty_bignum() {
-        let val = BigNum::new();
-        assert_eq!(&val * 7, BigNum::new());
+        let val = BigNum::zero();
+        assert_eq!(&val * 7, BigNum::zero());
     }
 
     #[test]
@@ -211,8 +208,8 @@ mod tests {
     #[test]
     fn mul_with_zero() {
         let val = BigNum::new_with_digs(vec![999999, 9]);
-        assert_eq!(&val * &BigNum::new(), BigNum::new());
-        assert_eq!(&BigNum::new() * &val, BigNum::new());
+        assert_eq!(&val * &BigNum::zero(), BigNum::zero());
+        assert_eq!(&BigNum::zero() * &val, BigNum::zero());
     }
 
     #[test]
@@ -263,7 +260,7 @@ mod tests {
 
     #[test]
     fn digsum() {
-        assert_eq!(BigNum::new().dig_sum(), 0);
+        assert_eq!(BigNum::zero().dig_sum(), 0);
         assert_eq!(BigNum::new_with_digs(vec![22]).dig_sum(), 4);
         assert_eq!(BigNum::new_with_digs(vec![22, 1]).dig_sum(), 5);
         assert_eq!(

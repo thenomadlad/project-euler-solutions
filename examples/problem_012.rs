@@ -26,7 +26,7 @@ impl Iterator for TriangleNumbers {
 
 fn get_num_factors(value: u64) -> u64 {
     FactorIterator::new(value)
-        .map(|ftrn| ftrn.power + 1) // number of ways the factor can be powered - 0 to n
+        .map(|ftrn| ftrn.power as u64 + 1) // number of ways the factor can be powered - 0 to n
         .product() // combination of all of them
 }
 

@@ -5,5 +5,5 @@ fn main() {
 }
 
 fn solution(n: usize) -> u64 {
-    primes::sieve(n).iter().fold(0, |acc, val| acc + val)
+    primes::sieve(n).iter().sum::<u64>()
 }

@@ -3,9 +3,9 @@ pub struct PrimesIterator {
     current: u64,
 }
 
-impl PrimesIterator {
-    pub fn new() -> PrimesIterator {
-        PrimesIterator {
+impl Default for PrimesIterator {
+    fn default() -> Self {
+        Self {
             primes_so_far: vec![],
             current: 2,
         }

@@ -19,8 +19,7 @@ impl Triangle {
         let values = triangle_string
             .trim()
             .lines()
-            .map(Triangle::split_line)
-            .flatten()
+            .flat_map(Triangle::split_line)
             .collect::<Vec<u32>>();
 
         assert_eq!((1..=num_rows).sum::<usize>(), values.len());
@@ -28,32 +27,29 @@ impl Triangle {
         Triangle { values }
     }
 
-    pub fn get_root<'a>(&'a self) -> TriangleElement<'a> {
+    pub fn get_root(&self) -> TriangleElement<'_> {
         TriangleElement {
-            value: *self.values.get(0).unwrap(),
+            value: *self.values.first().unwrap(),
             row: 1,
             col: 1,
-            triangle: &self,
+            triangle: self,
         }
     }
 
-    pub fn get_item_at<'a>(&'a self, row: usize, col: usize) -> Option<TriangleElement<'a>> {
+    pub fn get_item_at(&self, row: usize, col: usize) -> Option<TriangleElement<'_>> {
         let pos: usize = (1..row).sum::<usize>() + (col - 1);
 
-        self.values
-            .get(pos)
-            .map(|val| *val)
-            .map(|value| TriangleElement {
-                value,
-                row,
-                col,
-                triangle: &self,
-            })
+        self.values.get(pos).copied().map(|value| TriangleElement {
+            value,
+            row,
+            col,
+            triangle: self,
+        })
     }
 
     fn split_line(line: &str) -> Vec<u32> {
         line.trim()
-            .split(" ")
+            .split(' ')
             .map(|item| item.parse().unwrap())
             .collect()
     }
@@ -73,16 +69,16 @@ impl<'a> TriangleElement<'a> {
 mod test {
     use super::Triangle;
 
-    const MINI: &'static str = r#"
+    const MINI: &str = r#"
     1
     "#;
 
-    const SMALL: &'static str = r#"
+    const SMALL: &str = r#"
     1
     2 3
     "#;
 
-    const LARGE: &'static str = r#"
+    const LARGE: &str = r#"
     1
     2 3
     4 5 6

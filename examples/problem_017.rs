@@ -1,4 +1,4 @@
-const NUMBERS: [&'static str; 20] = [
+const NUMBERS: [&str; 20] = [
     "zero",
     "one",
     "two",
