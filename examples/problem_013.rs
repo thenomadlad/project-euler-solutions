@@ -121,12 +121,11 @@ fn main() {
     }
 
     // let's goooo
-    let value = format!(
-        "{}",
-        sums.iter()
-            .map(|v| format!("{}", v))
-            .collect::<Vec<String>>()
-            .join("")
-    );
+    let value = sums
+        .iter()
+        .map(|v| format!("{}", v))
+        .collect::<Vec<String>>()
+        .join("")
+        .to_string();
     println!("{}", value.split_at(10).0)
 }

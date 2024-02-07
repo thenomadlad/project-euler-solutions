@@ -32,8 +32,7 @@ fn get_num_factors(value: u64) -> u64 {
 
 fn main() {
     let result = TriangleNumbers::new()
-        .filter(|&value| get_num_factors(value) > 500)
-        .next()
+        .find(|&value| get_num_factors(value) > 500)
         .unwrap();
 
     println!("{}", result);

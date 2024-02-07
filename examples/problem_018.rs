@@ -1,6 +1,6 @@
 use project_euler_solutions::triangle::{Triangle, TriangleElement};
 
-const PROBLEM: &'static str = r#"
+const PROBLEM: &str = r#"
 75
 95 64
 17 47 82
@@ -18,7 +18,7 @@ const PROBLEM: &'static str = r#"
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 "#;
 
-fn find_max<'a>(elem: TriangleElement<'a>) -> u32 {
+fn find_max(elem: TriangleElement<'_>) -> u32 {
     elem.value
         + u32::max(
             elem.get_left_child().map(find_max).unwrap_or(0),

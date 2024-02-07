@@ -6,7 +6,7 @@ fn main() {
 }
 
 fn dp_solution() {
-    let mut values = [[0 as usize; ROWS + 1]; COLS + 1];
+    let mut values = [[0_usize; ROWS + 1]; COLS + 1];
 
     for row in (0..=ROWS).rev() {
         for col in (0..=COLS).rev() {

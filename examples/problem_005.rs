@@ -6,12 +6,11 @@ fn solution(n: u64) -> u64 {
         .flat_map(FactorIterator::new)
         .map(|f| (f.factor, f.power))
         .sorted()
-        .into_iter()
         .group_by(|item| item.0)
         .into_iter()
         .map(|(key, group)| (key, group.map(|(_, v)| v).max().unwrap_or(0)))
-        .map(|(base, power)| base.pow(power as u32))
-        .fold(1, |acc, val| acc * val)
+        .map(|(base, power)| base.pow(power))
+        .product::<u64>()
 }
 
 fn main() {

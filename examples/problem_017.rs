@@ -21,13 +21,13 @@ const NUMBERS: [&str; 20] = [
     "nineteen",
 ];
 
-const TENS: [&'static str; 10] = [
+const TENS: [&str; 10] = [
     "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
 ];
 
-const AND: &'static str = "and";
-const HUNDRED: &'static str = "hundred";
-const THOUSAND: &'static str = "thousand";
+const AND: &str = "and";
+const HUNDRED: &str = "hundred";
+const THOUSAND: &str = "thousand";
 
 fn main() {
     let result: usize = (1..=1000).map(textify).map(|s| s.len()).sum();
@@ -41,35 +41,31 @@ fn textify(val: usize) -> String {
     if val >= 1000 {
         result += &textify(val / 1000);
         result += THOUSAND;
-        val = val % 1000;
+        val %= 1000;
     }
 
     if val >= 100 {
         result += &textify(val / 100);
         result += HUNDRED;
-        val = val % 100;
+        val %= 100;
     }
 
     if val >= 20 {
         let tens = val / 10;
         let units = val % 10;
 
-        if result.len() > 0 {
+        if !result.is_empty() {
             result += AND;
         }
         result += TENS[tens];
         result += if units != 0 { NUMBERS[units] } else { "" };
-    } else {
-        if val != 0 {
-            if result.len() > 0 {
-                result += AND;
-            }
-            result += NUMBERS[val];
-        } else {
-            if result.len() == 0 {
-                result += NUMBERS[val];
-            }
+    } else if val != 0 {
+        if !result.is_empty() {
+            result += AND;
         }
+        result += NUMBERS[val];
+    } else if result.is_empty() {
+        result += NUMBERS[val];
     }
 
     result
