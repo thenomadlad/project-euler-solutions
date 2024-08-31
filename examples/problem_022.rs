@@ -20,7 +20,7 @@ fn main() {
 fn _name_score(line: &str) -> usize {
     line.to_lowercase()
         .chars()
-        .filter(|&c| c >= 'A' && c <= 'z')
+        .filter(|&c| ('A'..='z').contains(&c))
         .map(_char_score)
         .sum::<usize>()
 }

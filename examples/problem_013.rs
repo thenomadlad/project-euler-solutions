@@ -105,9 +105,9 @@ fn main() {
     let mut sums = (0..50).map(|_| 0).collect::<Vec<u64>>();
 
     // lets add up the digits first
-    for row in 0..100 {
-        for col in 0..50 {
-            sums[col] += DATA[row][col] as u64 - '0' as u64
+    for row in DATA {
+        for (col, val) in row.iter().enumerate() {
+            sums[col] += *val as u64 - '0' as u64
         }
     }
 

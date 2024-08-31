@@ -165,6 +165,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::erasing_op)]
     fn mul_num_with_zero() {
         let val = BigNum::new_with_digs(vec![999999, 9]);
         assert_eq!(&val * 0, BigNum::zero());

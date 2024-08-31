@@ -1,5 +1,6 @@
 use std::cmp::max;
 
+#[allow(clippy::zero_prefixed_literal)]
 const DATA: [[u32; 20]; 20] = [
     [
         08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08,
@@ -63,6 +64,7 @@ const DATA: [[u32; 20]; 20] = [
     ],
 ];
 
+#[allow(clippy::needless_range_loop)]
 fn main() {
     let mut max_product = 0;
 
